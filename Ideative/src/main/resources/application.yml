@@ -6,3 +6,9 @@ logging:
     org.springframework.web: INFO
     org.hibernate: ERROR
     in.ideative: DEBUG
+
+database:
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/ideativedb
+  username: ideativeadmin
+  password: password
