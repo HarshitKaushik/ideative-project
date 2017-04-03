@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -21,6 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  *
  * Created by harshit on 28/3/17.
  */
+@MapperScan("in.ideative.dao")
 @SpringBootApplication
 public class ApiApplication extends SpringBootServletInitializer {
 
