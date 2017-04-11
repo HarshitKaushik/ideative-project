@@ -16,14 +16,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * Filter class for responses
+ * Request Interceptor for all incoming classes
  *
  * Created by harshit on 8/4/17.
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ResponseFilter implements Filter {
-  private Logger log = LoggerFactory.getLogger(ResponseFilter.class);
+public class RequestInterceptor implements Filter {
+  private Logger log = LoggerFactory.getLogger(RequestInterceptor.class);
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -32,6 +32,7 @@ public class ResponseFilter implements Filter {
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    log.debug("Inside Request Filter");
     chain.doFilter(request,response);
     log.debug("Inside Response Filter");
   }
@@ -40,4 +41,5 @@ public class ResponseFilter implements Filter {
   public void destroy() {
 
   }
+
 }
