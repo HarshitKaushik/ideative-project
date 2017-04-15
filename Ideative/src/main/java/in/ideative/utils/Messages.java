@@ -8,5 +8,9 @@ package in.ideative.utils;
 public class Messages {
 
   public static final String BAD_REQUEST = "Bad Request";
+  public static final String INVALID_USER_ID = "Invalid user ID";
 
+  private Messages() {
+    //Default constructor
+  }
 }

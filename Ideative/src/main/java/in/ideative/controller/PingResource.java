@@ -24,13 +24,17 @@ import org.slf4j.LoggerFactory;
 public class PingResource {
   private Logger log = LoggerFactory.getLogger(PingResource.class);
 
+  /**
+   * Method to ping API
+   * @return {@link Response}
+   */
   @GET
   public Response ping() {
     log.info("ping - Method begins here");
     Map<String, String> pingResponse = new LinkedHashMap<>();
     pingResponse.put(Constants.VERSION, Constants.IDEATIVE_VERSION);
     pingResponse.put(Constants.CONTRIBUTOR, Constants.THE_DEV_FRATERNITY);
-    pingResponse.put("more info at", Constants.IDEATIVE_REPOSITORY);
+    pingResponse.put("More info at", Constants.IDEATIVE_REPOSITORY);
     return Response.ok(pingResponse).build();
   }
 }

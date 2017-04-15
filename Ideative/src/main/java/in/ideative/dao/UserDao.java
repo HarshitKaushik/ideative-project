@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * Created by harshit on 15/4/17.
  */
 @Component
-@FunctionalInterface
 public interface UserDao {
 
   /**
@@ -18,5 +17,12 @@ public interface UserDao {
    * @param accessToken a randomly generated accessToken
    * @return user if exists
    */
-  public User getUserByAccessToken(String accessToken);
+  User getUserByAccessToken(String accessToken);
+
+  /**
+   * Query to fetch a user
+   * @param user with id/email
+   * @return user
+   */
+  User getUser(User user);
 }

@@ -16,4 +16,17 @@
       and uld.end_date is null
   </select>
 
+  <select id="getUser" parameterType="User" resultType="User">
+    select user_id as id,
+           first_name as firstName,
+           last_name as lastName,
+           first_name || ' ' || last_name as name,
+           email as email,
+           start_date as startDate,
+           end_date as endDate,
+           status as status
+    from ideative.user
+    where user_id = #{id}
+  </select>
+
 </mapper>

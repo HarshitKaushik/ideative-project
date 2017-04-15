@@ -2,11 +2,14 @@ package in.ideative.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Class for User entity
  *
  * Created by harshit on 14/4/17.
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class User {
   private Integer id;
   private String firstName;
@@ -17,6 +20,18 @@ public class User {
   private Date startDate;
   private Date endDate;
   private Integer status;
+
+  public User() {
+    //Empty constructor
+  }
+
+  public User(Integer id) {
+    this.id = id;
+  }
+
+  public User(String email) {
+    this.email = email;
+  }
 
   /**
    * @return id

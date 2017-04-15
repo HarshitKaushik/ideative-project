@@ -49,7 +49,8 @@ public class RequestInterceptor implements Filter {
     HttpServletRequest httpServletRequest = asHttp(request);
     HttpServletResponse httpServletResponse = asHttp(response);
     String resourcePath = new UrlPathHelper().getPathWithinApplication(httpServletRequest);
-    if (resourcePath.contains(Constants.AUTH_RESOURCE_PATH) || !resourcePath.contains(Constants.PING_RESOURCE_PATH)) {
+        resourcePath.contains(Constants.PING_RESOURCE_PATH));
+    if (resourcePath.contains(Constants.AUTH_RESOURCE_PATH) || resourcePath.contains(Constants.PING_RESOURCE_PATH)) {
       chain.doFilter(request, response);
     } else {
       String accessToken = httpServletRequest.getHeader(Constants.ACCESS_TOKEN);
