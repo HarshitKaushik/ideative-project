@@ -11,6 +11,28 @@ public class AppResponse {
   private boolean error;
 
   /**
+   * Constructor
+   * @param code HTTP status code
+   * @param message error message
+   */
+  public AppResponse(int code, String message) {
+    this.code = code;
+    this.message = message;
+  }
+
+  /**
+   * Constructor
+   * @param code HTTP code
+   * @param message error message
+   * @param error true/false
+   */
+  public AppResponse(int code, String message, boolean error) {
+    this.code = code;
+    this.message = message;
+    this.error = error;
+  }
+
+  /**
    * @return code
    */
   public int getCode() {

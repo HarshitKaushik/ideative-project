@@ -29,4 +29,14 @@ public class UserService {
     log.debug("getUserByAccessToken - Method begins here");
     return userDao.getUserByAccessToken(accessToken);
   }
+
+  /**
+   * Method to get the user from id/email
+   * @param user with id or email
+   * @return user details
+   */
+  public User getUser(User user) {
+    log.debug("getUser - Method begins with id <{}>, email <{}>", user.getId(), user.getName());
+    return userDao.getUser(user);
+  }
 }
