@@ -2,6 +2,8 @@ package in.ideative.filter;
 
 import in.ideative.model.User;
 import in.ideative.service.UserService;
+import in.ideative.utils.Constants;
+import in.ideative.utils.Messages;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -47,12 +49,12 @@ public class RequestInterceptor implements Filter {
     HttpServletRequest httpServletRequest = asHttp(request);
     HttpServletResponse httpServletResponse = asHttp(response);
     String resourcePath = new UrlPathHelper().getPathWithinApplication(httpServletRequest);
-    if (resourcePath.contains("auth") || !resourcePath.contains("ping")) {
+    if (resourcePath.contains(Constants.AUTH_RESOURCE_PATH) || !resourcePath.contains(Constants.PING_RESOURCE_PATH)) {
       chain.doFilter(request, response);
     } else {
-      String accessToken = httpServletRequest.getHeader("access-token");
+      String accessToken = httpServletRequest.getHeader(Constants.ACCESS_TOKEN);
       if (accessToken == null) {
-        httpServletResponse.sendError(HttpURLConnection.HTTP_BAD_REQUEST, "Bad Request");
+        httpServletResponse.sendError(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST);
         return;
       }
       User user = userService.getUserByAccessToken(accessToken);
@@ -60,7 +62,7 @@ public class RequestInterceptor implements Filter {
         log.debug("doFilter - User <{}> authenticated successfully", user.getName());
         chain.doFilter(request, response);
       } else {
-        httpServletResponse.sendError(HttpURLConnection.HTTP_BAD_REQUEST, "Bad Request");
+        httpServletResponse.sendError(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST);
         return;
       }
     }
