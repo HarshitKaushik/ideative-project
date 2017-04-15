@@ -60,7 +60,7 @@ public class ApiApplication extends SpringBootServletInitializer {
     sqlSessionFactoryBean.setDataSource(ideativeDataSource());
     PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
     sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/*.xml"));
-    sqlSessionFactoryBean.setTypeAliasesPackage("in.ideative.entity");
+    sqlSessionFactoryBean.setTypeAliasesPackage("in.ideative.model");
     return sqlSessionFactoryBean.getObject();
   }
 
