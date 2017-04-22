@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="in.ideative.dao.UserDao">
+
+  <select id="getUserByAccessToken" parameterType="String" resultType="User">
+    select u.user_id as id,
+           u.first_name as firstName,
+           u.last_name as lastName,
+           u.first_name || ' ' || u.last_name as name,
+           u.email as email,
+           u.status as status
+    from ideative.user_login_details uld
+    inner join ideative.user u on u.user_id = uld.user_id
+    where uld.access_token = #{accessToken}
+      and uld.end_date is null
+  </select>
+
+  <select id="getUser" parameterType="User" resultType="User">
+    select user_id as id,
+           first_name as firstName,
+           last_name as lastName,
+           first_name || ' ' || last_name as name,
+           email as email,
+           start_date as startDate,
+           end_date as endDate,
+           status as status
+    from ideative.user
+    where user_id = #{id}
+  </select>
+
+</mapper>

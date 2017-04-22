@@ -1,6 +1,8 @@
 package in.ideative.config;
 
+import in.ideative.controller.AuthResource;
 import in.ideative.controller.PingResource;
+import in.ideative.controller.UserResource;
 
 import javax.ws.rs.ApplicationPath;
 
@@ -22,5 +24,7 @@ public class JerseyConfig extends ResourceConfig {
    */
   public JerseyConfig() {
     register(PingResource.class);
+    register(UserResource.class);
+    register(AuthResource.class);
   }
 }
