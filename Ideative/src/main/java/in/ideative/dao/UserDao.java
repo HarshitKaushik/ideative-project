@@ -25,4 +25,11 @@ public interface UserDao {
    * @return user
    */
   User getUser(User user);
+
+  /**
+   * Query to insert user login details for a user
+   * @param user with userId, accessToken and ipAddress
+   * @return no. of inserted rows
+   */
+  int insertUserLoginDetails(User user);
 }

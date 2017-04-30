@@ -17,8 +17,11 @@ public class Constants {
   public static final String USER_RESOURCE_PATH = "user";
 
   public static final String ACCESS_TOKEN = "access-token";
+  public static final Integer ACCESS_TOKEN_LENGTH = 64;
   public static final String VERSION = "Version";
   public static final String CONTRIBUTOR = "Contributor";
+  public static final String IP_ADDRESS = "ipAddress";
+  public static final String USER_ID = "userId";
 
   private Constants() {
     //Default constructor
