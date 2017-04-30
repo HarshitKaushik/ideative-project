@@ -22,11 +22,25 @@
            last_name as lastName,
            first_name || ' ' || last_name as name,
            email as email,
+           password as password,
            start_date as startDate,
            end_date as endDate,
            status as status
     from ideative.user
-    where user_id = #{id}
+    <where>
+      <if test="id != null">
+        user_id = #{id}
+      </if>
+      <if test="email != null">
+        email = #{email}
+      </if>
+    </where>
   </select>
+
+  <insert id="insertUserLoginDetails" parameterType="User">
+    insert into
+    ideative.user_login_details(user_login_details_id, user_id, access_token, ip_details, start_date)
+    values (nextval('ideative.user_login_details_id_seq'), #{id}, #{accessToken}, #{ipAddress}, now())
+  </insert>
 
 </mapper>

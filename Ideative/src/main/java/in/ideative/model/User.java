@@ -2,6 +2,7 @@ package in.ideative.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
@@ -16,10 +17,13 @@ public class User {
   private String lastName;
   private String name;
   private String email;
+  @JsonIgnore
   private String password;
   private Date startDate;
   private Date endDate;
   private Integer status;
+  private String accessToken;
+  private String ipAddress;
 
   public User() {
     //Empty constructor
@@ -166,5 +170,35 @@ public class User {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * @return accessToken
+   */
+  public String getAccessToken() {
+    return accessToken;
+  }
+
+  /**
+   * @param accessToken
+   *     the accessToken to set
+   */
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  /**
+   * @return ipAddress
+   */
+  public String getIpAddress() {
+    return ipAddress;
+  }
+
+  /**
+   * @param ipAddress
+   *     the ipAddress to set
+   */
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
 }

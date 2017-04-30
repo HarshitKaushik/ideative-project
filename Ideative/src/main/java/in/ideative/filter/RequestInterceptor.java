@@ -1,5 +1,6 @@
 package in.ideative.filter;
 
+import in.ideative.model.MutableHttpServletRequest;
 import in.ideative.model.User;
 import in.ideative.service.UserService;
 import in.ideative.utils.Constants;
@@ -17,6 +18,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +50,17 @@ public class RequestInterceptor implements Filter {
     log.debug("Inside Request Filter");
     HttpServletRequest httpServletRequest = asHttp(request);
     HttpServletResponse httpServletResponse = asHttp(response);
+    MutableHttpServletRequest mutableRequest = new MutableHttpServletRequest(httpServletRequest);
     String resourcePath = new UrlPathHelper().getPathWithinApplication(httpServletRequest);
+    String ipAddress = httpServletRequest.getRemoteAddr();
+    if (StringUtils.isBlank(ipAddress)) {
+      ipAddress = httpServletRequest.getLocalAddr();
+    }
+    log.debug("pokemon <{}>", ipAddress);
+    ipAddress = "127.0.0.1";
+    mutableRequest.putHeader(Constants.IP_ADDRESS, ipAddress);
     if (resourcePath.contains(Constants.AUTH_RESOURCE_PATH) || resourcePath.contains(Constants.PING_RESOURCE_PATH)) {
-      chain.doFilter(request, response);
+      chain.doFilter(mutableRequest, response);
     } else {
       String accessToken = httpServletRequest.getHeader(Constants.ACCESS_TOKEN);
       if (accessToken == null) {
@@ -60,7 +70,8 @@ public class RequestInterceptor implements Filter {
       User user = userService.getUserByAccessToken(accessToken);
       if (user != null) {
         log.debug("doFilter - User <{}> authenticated successfully", user.getName());
-        chain.doFilter(request, response);
+        mutableRequest.putHeader(Constants.USER_ID, user.getId().toString());
+        chain.doFilter(mutableRequest, response);
       } else {
         httpServletResponse.sendError(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST);
         return;

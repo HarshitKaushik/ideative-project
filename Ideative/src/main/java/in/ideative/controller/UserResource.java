@@ -43,13 +43,15 @@ public class UserResource {
     log.info("getUser - Method begins with userId <{}>", userId);
     if (userId <= 0) {
       return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
-          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST, true)).build();
+          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST, true))
+          .build();
     }
     User user = new User(userId);
     user = userService.getUser(user);
     if (user == null) {
       return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
-          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.INVALID_USER_ID, true)).build();
+          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.INVALID_USER_ID, true))
+          .build();
     }
     return Response.ok().entity(user).build();
   }

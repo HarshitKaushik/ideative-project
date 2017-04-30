@@ -36,7 +36,20 @@ public class UserService {
    * @return user details
    */
   public User getUser(User user) {
-    log.debug("getUser - Method begins with id <{}>, email <{}>", user.getId(), user.getName());
+    log.debug("getUser - Method begins with id <{}>, email <{}>", user.getId(), user.getEmail());
     return userDao.getUser(user);
+  }
+
+  /**
+   * Method to insert user login details
+   * @param user with email and password
+   * @param accessToken access token
+   * @param ipAddress IP address
+   */
+  public int insertUserLoginDetails(User user, String accessToken, String ipAddress) {
+    log.debug("insertUserLoginDetails - Method begins with userId <{}>, accessToken <{}> and ipAddress <{}>", user.getId(), accessToken, ipAddress);
+    user.setAccessToken(accessToken);
+    user.setIpAddress(ipAddress);
+    return userDao.insertUserLoginDetails(user);
   }
 }
