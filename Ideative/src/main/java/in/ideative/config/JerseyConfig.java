@@ -3,6 +3,8 @@ package in.ideative.config;
 import in.ideative.controller.AuthResource;
 import in.ideative.controller.PingResource;
 import in.ideative.controller.UserResource;
+import in.ideative.filter.RequestFilter;
+import in.ideative.filter.ResponseFilter;
 
 import javax.ws.rs.ApplicationPath;
 
@@ -23,6 +25,8 @@ public class JerseyConfig extends ResourceConfig {
    * serve as end points to our main application
    */
   public JerseyConfig() {
+    register(RequestFilter.class);
+    register(ResponseFilter.class);
     register(PingResource.class);
     register(UserResource.class);
     register(AuthResource.class);

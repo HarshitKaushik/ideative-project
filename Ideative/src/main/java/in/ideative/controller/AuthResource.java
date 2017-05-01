@@ -10,11 +10,13 @@ import in.ideative.utils.Messages;
 
 import java.net.HttpURLConnection;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -47,7 +49,6 @@ public class AuthResource {
   public Response authenticate(@HeaderParam(Constants.IP_ADDRESS) String ipAddress,
       @Valid AuthRequest authRequest) {
     log.info("authenticate - Method begins with email <{}>", authRequest.getEmail());
-    log.info("pokemon - <{}>", ipAddress);
     if (!EmailValidator.getInstance().isValid(authRequest.getEmail())) {
       return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
           .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.INVALID_EMAIL, true))
@@ -61,7 +62,7 @@ public class AuthResource {
     }
     if (StringUtils.isNotBlank(user.getPassword()) && user.getPassword().equals(authRequest.getPassword())) {
       //User authenticated
-      String accessToken = RandomStringUtils.random(Constants.ACCESS_TOKEN_LENGTH);
+      String accessToken = RandomStringUtils.randomAlphanumeric(Constants.ACCESS_TOKEN_LENGTH);
       userService.insertUserLoginDetails(user, accessToken, ipAddress);
       return Response.ok(JSONUtil.objectToJson(accessToken))
           .build();
