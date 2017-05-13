@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by harshit on 1/5/17.
  */
 public class RequestFilter implements ContainerRequestFilter {
-  private static final Logger log = LoggerFactory.getLogger(RequestFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RequestFilter.class);
 
   @Context
   HttpServletRequest request;
@@ -41,7 +41,7 @@ public class RequestFilter implements ContainerRequestFilter {
   @Override
   public void filter(ContainerRequestContext requestContext)
       throws IOException {
-    log.debug("filter - Method begins here");
+    LOG.debug("filter - Method begins here");
     String resourcePath = requestContext.getUriInfo().getPath();
     String ipAddress = request.getRemoteAddr();
     if (StringUtils.isBlank(ipAddress)) {
@@ -58,7 +58,7 @@ public class RequestFilter implements ContainerRequestFilter {
       }
       User user = userService.getUserByAccessToken(accessToken);
       if (user != null) {
-        log.debug("filter - User <{}> authenticated successfully", user.getName());
+        LOG.debug("filter - User <{}> authenticated successfully", user.getName());
         requestContext.getHeaders().add(Constants.USER_ID, user.getId().toString());
       } else {
         requestContext.abortWith(Response

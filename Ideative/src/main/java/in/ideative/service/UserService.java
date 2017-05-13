@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
-  private static final Logger log = LoggerFactory.getLogger(UserService.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
   @Autowired
   private UserDao userDao;
@@ -26,7 +26,7 @@ public class UserService {
    * @return user if exists in database with the given access token
    */
   public User getUserByAccessToken(String accessToken) {
-    log.debug("getUserByAccessToken - Method begins here");
+    LOG.debug("getUserByAccessToken - Method begins here");
     return userDao.getUserByAccessToken(accessToken);
   }
 
@@ -36,7 +36,7 @@ public class UserService {
    * @return user details
    */
   public User getUser(User user) {
-    log.debug("getUser - Method begins with id <{}>, email <{}>", user.getId(), user.getEmail());
+    LOG.debug("getUser - Method begins with id <{}>, email <{}>", user.getId(), user.getEmail());
     return userDao.getUser(user);
   }
 
@@ -47,7 +47,7 @@ public class UserService {
    * @param ipAddress IP address
    */
   public int insertUserLoginDetails(User user, String accessToken, String ipAddress) {
-    log.debug("insertUserLoginDetails - Method begins with userId <{}>, accessToken <{}> and ipAddress <{}>", user.getId(), accessToken, ipAddress);
+    LOG.debug("insertUserLoginDetails - Method begins with userId <{}>, accessToken <{}> and ipAddress <{}>", user.getId(), accessToken, ipAddress);
     user.setAccessToken(accessToken);
     user.setIpAddress(ipAddress);
     return userDao.insertUserLoginDetails(user);

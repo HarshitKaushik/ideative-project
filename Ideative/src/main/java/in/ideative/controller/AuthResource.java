@@ -10,13 +10,11 @@ import in.ideative.utils.Messages;
 
 import java.net.HttpURLConnection;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -35,7 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Path(Constants.AUTH_RESOURCE_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthResource {
-  private static final Logger log = LoggerFactory.getLogger(AuthResource.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AuthResource.class);
 
   @Autowired
   private UserService userService;
@@ -48,7 +46,7 @@ public class AuthResource {
   @POST
   public Response authenticate(@HeaderParam(Constants.IP_ADDRESS) String ipAddress,
       @Valid AuthRequest authRequest) {
-    log.info("authenticate - Method begins with email <{}>", authRequest.getEmail());
+    LOG.info("authenticate - Method begins with email <{}>", authRequest.getEmail());
     if (!EmailValidator.getInstance().isValid(authRequest.getEmail())) {
       return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
           .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.INVALID_EMAIL, true))
@@ -60,14 +58,21 @@ public class AuthResource {
           .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST, true))
           .build();
     }
+    boolean authenticated = false;
+    String accessToken = null;
     if (StringUtils.isNotBlank(user.getPassword()) && user.getPassword().equals(authRequest.getPassword())) {
       //User authenticated
-      String accessToken = RandomStringUtils.randomAlphanumeric(Constants.ACCESS_TOKEN_LENGTH);
+      accessToken = RandomStringUtils.randomAlphanumeric(Constants.ACCESS_TOKEN_LENGTH);
       userService.insertUserLoginDetails(user, accessToken, ipAddress);
-      return Response.ok(JSONUtil.objectToJson(accessToken))
+      authenticated = true;
+    }
+    if (!authenticated) {
+      return Response.status(HttpURLConnection.HTTP_FORBIDDEN)
+          .entity(new AppResponse(HttpURLConnection.HTTP_FORBIDDEN, Messages.USER_AUTHENTICATION_FAILED, true))
           .build();
     }
-    return null;
+    return Response.ok(JSONUtil.objectToJson(accessToken))
+        .build();
   }
 
 }

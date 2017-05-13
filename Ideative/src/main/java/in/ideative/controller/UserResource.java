@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Path(Constants.USER_RESOURCE_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
-  private static final Logger log = LoggerFactory.getLogger(UserResource.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UserResource.class);
 
   @Autowired
   private UserService userService;
@@ -40,7 +40,7 @@ public class UserResource {
    */
   @GET
   public Response getUser(@QueryParam("userId") @NotNull Integer userId) {
-    log.info("getUser - Method begins with userId <{}>", userId);
+    LOG.info("getUser - Method begins with userId <{}>", userId);
     if (userId <= 0) {
       return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
           .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST, true))

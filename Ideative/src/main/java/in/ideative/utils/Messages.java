@@ -12,6 +12,7 @@ public class Messages {
   public static final String INVALID_EMAIL = "Invalid Email";
 
   public static final String USER_SUCCESSFULLY_AUTHENTICATED = "User successfully authenticated";
+  public static final String USER_AUTHENTICATION_FAILED = "User authentication failed";
 
   private Messages() {
     //Default constructor
