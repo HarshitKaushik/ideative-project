@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 @Path(Constants.PING_RESOURCE_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 public class PingResource {
-  private Logger log = LoggerFactory.getLogger(PingResource.class);
+  private Logger LOG = LoggerFactory.getLogger(PingResource.class);
 
   /**
    * Method to ping API
@@ -30,7 +30,7 @@ public class PingResource {
    */
   @GET
   public Response ping() {
-    log.info("ping - Method begins here");
+    LOG.info("ping - Method begins here");
     Map<String, String> pingResponse = new LinkedHashMap<>();
     pingResponse.put(Constants.VERSION, Constants.IDEATIVE_VERSION);
     pingResponse.put(Constants.CONTRIBUTOR, Constants.THE_DEV_FRATERNITY);

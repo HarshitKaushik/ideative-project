@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * Created by harshit on 1/5/17.
  */
 public class ResponseFilter implements ContainerResponseFilter {
-  private static final Logger log = LoggerFactory.getLogger(ResponseFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResponseFilter.class);
 
   /**
    * Filter method
@@ -26,6 +26,6 @@ public class ResponseFilter implements ContainerResponseFilter {
   @Override
   public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
       throws IOException {
-    log.debug("filter - Method begins here");
+    LOG.debug("filter - Method begins here");
   }
 }
