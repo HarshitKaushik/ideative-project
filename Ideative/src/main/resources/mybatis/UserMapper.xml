@@ -43,4 +43,9 @@
     values (nextval('ideative.user_login_details_id_seq'), #{id}, #{accessToken}, #{ipAddress}, now())
   </insert>
 
+  <insert id="addUser" parameterType="User">
+    insert into ideative.user(user_id,first_name, last_name, email,password,start_date,end_date,status)
+    values (nextval('ideative.user_id_seq'), #{firstName}, #{lastName}, #{email},#{password},now(),null,1)
+  </insert>
+
 </mapper>

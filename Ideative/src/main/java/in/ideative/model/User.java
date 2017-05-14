@@ -2,7 +2,10 @@ package in.ideative.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
@@ -13,11 +16,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class User {
   private Integer id;
+  @NotNull(message = "First name is mandatory")
   private String firstName;
   private String lastName;
   private String name;
+  @Email(message = "Please enter a valid email")
+  @NotNull(message = "Email is mandatory")
   private String email;
-  @JsonIgnore
   private String password;
   private Date startDate;
   private Date endDate;

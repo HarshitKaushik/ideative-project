@@ -2,7 +2,10 @@ package in.ideative.service;
 
 import in.ideative.dao.UserDao;
 import in.ideative.model.User;
+import in.ideative.utils.JSONUtil;
+import in.ideative.utils.StringUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +54,28 @@ public class UserService {
     user.setAccessToken(accessToken);
     user.setIpAddress(ipAddress);
     return userDao.insertUserLoginDetails(user);
+  }
+
+  /**
+   * Method to add user
+   * @param user with user details
+   * @return number of updated rows
+   */
+  public int addUser(User user){
+    LOG.debug("addUser - Method begins email <{}>", user.getEmail());
+      return userDao.addUser(user);
+  }
+
+  /**
+   * Service method to validate user data
+   * @param user
+   * @return boolean
+   */
+  public boolean validateUserData(User user) {
+    LOG.debug("validateUserData - Method begins <{}>", JSONUtil.objectToJson(user));
+    if (!StringUtil.validateName(user.getFirstName())) {
+      return false;
+    }
+    return !(StringUtils.isNotBlank(user.getLastName()) && !StringUtil.validateName(user.getLastName()));
   }
 }

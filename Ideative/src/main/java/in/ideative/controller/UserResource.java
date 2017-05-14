@@ -8,8 +8,12 @@ import in.ideative.utils.Messages;
 
 import java.net.HttpURLConnection;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -56,4 +60,29 @@ public class UserResource {
     return Response.ok().entity(user).build();
   }
 
+  /**
+   * Method to add a user
+   * @param user details of the user
+   * @return {@link Response}
+   */
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path("/add")
+  public Response addUser(@HeaderParam(Constants.USER_ID) Integer userId, @NotNull @Valid User user){
+    LOG.info("addUser - Method begins with email <{}> userId <{}>", user.getEmail(), userId);
+    if (!userService.validateUserData(user)){
+      return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
+          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.INVALID_USER_DETAILS, true))
+          .build();
+    }
+    int rows = userService.addUser(user);
+    if (rows != 1){
+      return Response.status(HttpURLConnection.HTTP_INTERNAL_ERROR)
+          .entity(new AppResponse(HttpURLConnection.HTTP_INTERNAL_ERROR, Messages.USER_INSERTION_FAILED, true))
+          .build();
+    }
+    return Response.status(HttpURLConnection.HTTP_CREATED)
+        .entity(new AppResponse(HttpURLConnection.HTTP_CREATED, Messages.USER_INSERTION_SUCCESSFUL, false))
+        .build();
+  }
 }
