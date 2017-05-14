@@ -14,17 +14,17 @@ import com.fasterxml.jackson.databind.ObjectWriter;
  * Created by harshit on 30/4/17.
  */
 public class JSONUtil {
-  private static final Logger log = LoggerFactory.getLogger(JSONUtil.class);
+  private static final Logger LOG = LoggerFactory.getLogger(JSONUtil.class);
 
   public static String objectToJson(Object object) {
-    log.debug("objectToJson - Method begins here");
+    LOG.debug("objectToJson - Method begins here");
     String json = null;
     try {
       ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
       json = ow.writeValueAsString(object);
-      log.debug("objectToJson - The JSON <{}>", json);
+      LOG.debug("objectToJson - The JSON <{}>", json);
     } catch (JsonProcessingException e) {
-      log.error("objectToJson - Exception occured <{}>", ExceptionUtils.getStackTrace(e));
+      LOG.error("objectToJson - Exception occured <{}>", ExceptionUtils.getStackTrace(e));
     }
     return json;
   }

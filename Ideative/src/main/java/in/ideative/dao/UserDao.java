@@ -32,4 +32,11 @@ public interface UserDao {
    * @return no. of inserted rows
    */
   int insertUserLoginDetails(User user);
+
+  /**
+   * Query to insert User
+   * @param user with user details
+   * @return no. of inserted rows
+   */
+  int addUser(User user);
 }
