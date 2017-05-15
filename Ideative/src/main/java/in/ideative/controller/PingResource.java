@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 @Path(Constants.PING_RESOURCE_PATH)
 @Produces(MediaType.APPLICATION_JSON)
 public class PingResource {
-  private Logger LOG = LoggerFactory.getLogger(PingResource.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PingResource.class);
 
   /**
    * Method to ping API

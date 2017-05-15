@@ -16,6 +16,10 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class JSONUtil {
   private static final Logger LOG = LoggerFactory.getLogger(JSONUtil.class);
 
+  private JSONUtil() {
+    //Default constructor
+  }
+
   public static String objectToJson(Object object) {
     LOG.debug("objectToJson - Method begins here");
     String json = null;
