@@ -30,8 +30,8 @@ public class User {
   private String accessToken;
   private String ipAddress;
 
-  public User() {
-    //Empty constructor
+  private User() {
+    //Default constructor
   }
 
   public User(Integer id) {

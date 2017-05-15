@@ -3,15 +3,25 @@ package in.ideative.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Class for String validation
  * Created by eramit95 on 5/14/2017.
  */
 public class StringUtil {
-  public static boolean validateName(String txt) {
+  private static final Logger LOG = LoggerFactory.getLogger(StringUtil.class);
+
+  private StringUtil() {
+    //Default constructor
+  }
+
+  public static boolean validateName(String name) {
+    LOG.debug("validateName - Method begins here with name <{}>", name);
     String regx = "^[a-zA-Z\\s]*$";
-    Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
-    Matcher matcher = pattern.matcher(txt);
+    Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(name);
     return matcher.find();
   }
 }
