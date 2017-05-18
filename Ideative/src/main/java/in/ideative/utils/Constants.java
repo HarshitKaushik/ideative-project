@@ -14,7 +14,6 @@ public class Constants {
   // Resource paths
   public static final String AUTH_RESOURCE_PATH = "auth";
   public static final String PING_RESOURCE_PATH = "ping";
-  public static final String USER_RESOURCE_PATH = "user";
 
   public static final String ACCESS_TOKEN = "access-token";
   public static final Integer ACCESS_TOKEN_LENGTH = 64;

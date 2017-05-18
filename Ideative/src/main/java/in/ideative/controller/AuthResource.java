@@ -1,14 +1,12 @@
 package in.ideative.controller;
 
+import in.ideative.exception.ApplicationException;
 import in.ideative.model.AuthRequest;
 import in.ideative.model.User;
 import in.ideative.service.UserService;
-import in.ideative.utils.AppResponse;
 import in.ideative.utils.Constants;
 import in.ideative.utils.JSONUtil;
 import in.ideative.utils.Messages;
-
-import java.net.HttpURLConnection;
 
 import javax.validation.Valid;
 import javax.ws.rs.HeaderParam;
@@ -18,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -30,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * Created by harshit on 15/4/17.
  */
-@Path(Constants.AUTH_RESOURCE_PATH)
+@Path("auth")
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthResource {
   private static final Logger LOG = LoggerFactory.getLogger(AuthResource.class);
@@ -48,15 +47,11 @@ public class AuthResource {
       @Valid AuthRequest authRequest) {
     LOG.info("authenticate - Method begins with email <{}>", authRequest.getEmail());
     if (!EmailValidator.getInstance().isValid(authRequest.getEmail())) {
-      return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
-          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.INVALID_EMAIL, true))
-          .build();
+      throw new ApplicationException(HttpStatus.SC_BAD_REQUEST, Messages.INVALID_EMAIL);
     }
     User user = userService.getUser(new User(authRequest.getEmail()));
     if (user == null) {
-      return Response.status(HttpURLConnection.HTTP_BAD_REQUEST)
-          .entity(new AppResponse(HttpURLConnection.HTTP_BAD_REQUEST, Messages.BAD_REQUEST, true))
-          .build();
+      throw new ApplicationException(HttpStatus.SC_BAD_REQUEST, Messages.BAD_REQUEST);
     }
     boolean authenticated = false;
     String accessToken = null;
@@ -67,9 +62,7 @@ public class AuthResource {
       authenticated = true;
     }
     if (!authenticated) {
-      return Response.status(HttpURLConnection.HTTP_FORBIDDEN)
-          .entity(new AppResponse(HttpURLConnection.HTTP_FORBIDDEN, Messages.USER_AUTHENTICATION_FAILED, true))
-          .build();
+      throw new ApplicationException(HttpStatus.SC_FORBIDDEN, Messages.USER_AUTHENTICATION_FAILED);
     }
     return Response.ok(JSONUtil.objectToJson(accessToken))
         .build();
