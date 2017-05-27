@@ -6,7 +6,6 @@ import in.ideative.utils.Constants;
 import in.ideative.utils.JSONUtil;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -14,6 +13,7 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class RequestFilter implements ContainerRequestFilter {
       String accessToken = request.getHeader(Constants.ACCESS_TOKEN);
       if (accessToken == null) {
         requestContext.abortWith(Response
-            .status(HttpURLConnection.HTTP_UNAUTHORIZED)
+            .status(HttpStatus.SC_UNAUTHORIZED)
             .entity(JSONUtil.objectToJson("User cannot access the resource."))
             .build());
       }
@@ -62,7 +62,7 @@ public class RequestFilter implements ContainerRequestFilter {
         requestContext.getHeaders().add(Constants.USER_ID, user.getId().toString());
       } else {
         requestContext.abortWith(Response
-            .status(HttpURLConnection.HTTP_UNAUTHORIZED)
+            .status(HttpStatus.SC_UNAUTHORIZED)
             .entity(JSONUtil.objectToJson("User cannot access the resource."))
             .build());
       }

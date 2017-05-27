@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  *
  * Created by harshit on 28/3/17.
  */
-@Path(Constants.PING_RESOURCE_PATH)
+@Path("ping")
 @Produces(MediaType.APPLICATION_JSON)
 public class PingResource {
   private static final Logger LOG = LoggerFactory.getLogger(PingResource.class);
