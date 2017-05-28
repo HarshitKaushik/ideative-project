@@ -1,6 +1,7 @@
-Ideative/target
-Ideative/.idea
-Ideative/ideative.iml
-Ideative/Ideative.iml
 *.log
-*.class
+*.idea
+*.jpeg
+*.gif
+*.mp4
+*.iml
+target/
