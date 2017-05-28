@@ -42,8 +42,9 @@ Beyond where required by the language or other style rules, and apart from liter
 ```
 public protected private abstract default static final transient volatile synchronized native strictfp
 ```
-# Naming
-## Rules common to all identifiers
+
+## Naming
+### Rules common to all identifiers
 - Identifiers use only ASCII letters and digits, and, in a small number of cases noted below, underscores. Thus each valid identifier name is matched by the regular expression \w+ . Few like name_, mName, s_name and kName, are not used.
 ## Rules by identifier type
 ### Package names
@@ -70,7 +71,7 @@ public protected private abstract default static final transient volatile synchr
 - A single capital letter, optionally followed by a single numeral (such as E, T, X, T2)
 A name in the form used for classes (see Section 5.2.2, Class names), followed by the capital letter T (examples: RequestT, FooBarT).
 
-# Programming Practices
+## Programming Practices
 ## @Override: always used
 - A method is marked with the @Override annotation whenever it is legal. This includes a class method overriding a superclass method, a class method implementing an interface method, and an interface method respecifying a superinterface method.
 Exception: @Override may be omitted when the parent method is @Deprecated.
@@ -79,10 +80,12 @@ Exception: @Override may be omitted when the parent method is @Deprecated.
 When it truly is appropriate to take no action whatsoever in a catch block, the reason this is justified is explained in a comment.
 ## Static members: qualified using class
 - When a reference to a static class member must be qualified, it is qualified with that class's name, not with a reference or expression of that class's type.
+```.java
 Foo aFoo = ...;
 Foo.aStaticMethod(); // good
 aFoo.aStaticMethod(); // bad
 somethingThatYieldsAFoo().aStaticMethod(); // very bad
+```
 ## Finalizers: not used
 - It is extremely rare to override Object.finalize.
 
@@ -90,6 +93,7 @@ somethingThatYieldsAFoo().aStaticMethod(); // very bad
 ## Formatting
 ### General form
 - The basic formatting of Javadoc blocks is as seen in this example:
+```.java
 /**
  *Multiple lines of Javadoc text are written here,
  *wrapped normally...
@@ -97,14 +101,15 @@ somethingThatYieldsAFoo().aStaticMethod(); // very bad
 public int method(String p1) { ... }
 ... or in this single-line example:
 /** An especially short bit of Javadoc. */
+```
 - The basic form is always acceptable. The single-line form may be substituted when the entirety of the Javadoc block (including comment markers) can fit on a single line. Note that this only applies when there are no block tags such as @return.
 ###  Paragraphs
-- One blank line—that is, a line containing only the aligned leading asterisk (*)—appears between paragraphs, and before the group of block tags if present. Each paragraph but the first has <p> immediately before the first word, with no space after.
+- One blank lineï¿½that is, a line containing only the aligned leading asterisk (*)ï¿½appears between paragraphs, and before the group of block tags if present. Each paragraph but the first has <p> immediately before the first word, with no space after.
 ### Block tags
 - Any of the standard "block tags" that are used appear in the order @param, @return, @throws, @deprecated, and these four types never appear with an empty description. When a block tag doesn't fit on a single line, continuation lines are indented four (or more) spaces from the position of the @.
 ## The summary fragment
 - Each Javadoc block begins with a brief summary fragment. This fragment is very important: it is the only part of the text that appears in certain contexts such as class and method indexes.
-- This is a fragment—a noun phrase or verb phrase, not a complete sentence. It does not begin with A {@code Foo} is a..., or This method returns..., nor does it form a complete imperative sentence like Save the record.. However, the fragment is capitalized and punctuated as if it were a complete sentence.
+- This is a fragmentï¿½a noun phrase or verb phrase, not a complete sentence. It does not begin with A {@code Foo} is a..., or This method returns..., nor does it form a complete imperative sentence like Save the record.. However, the fragment is capitalized and punctuated as if it were a complete sentence.
 ## Where Javadoc is used
 - At the minimum, Javadoc is present for every public class, and every public or protected member of such a class, with a few exceptions noted below.
 - Additional Javadoc content may also be present, as explained in Section Non-required Javadoc.
@@ -117,7 +122,3 @@ public int method(String p1) { ... }
 - Other classes and members have Javadoc as needed or desired.
 - Whenever an implementation comment would be used to define the overall purpose or behavior of a class or member, that comment is written as Javadoc instead (using /**).
 - Non-required Javadoc is not strictly required to follow the formatting rules of Sections Paragraphs, Block tags, and The summary fragment, though it is of course recommended.
-
-
-
-
