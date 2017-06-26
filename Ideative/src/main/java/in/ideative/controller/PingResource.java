@@ -30,7 +30,7 @@ public class PingResource {
    */
   @GET
   public Response ping() {
-    LOG.info("ping - Method begins here");
+    LOG.debug("ping - Method begins here");
     Map<String, String> pingResponse = new LinkedHashMap<>();
     pingResponse.put(Constants.VERSION, Constants.IDEATIVE_VERSION);
     pingResponse.put(Constants.CONTRIBUTOR, Constants.THE_DEV_FRATERNITY);

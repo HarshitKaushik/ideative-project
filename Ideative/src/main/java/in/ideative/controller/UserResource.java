@@ -44,7 +44,7 @@ public class UserResource {
    */
   @GET
   public Response getUser(@QueryParam("userId") @NotNull Integer userId) {
-    LOG.info("getUser - Method begins with userId <{}>", userId);
+    LOG.debug("getUser - Method begins with userId <{}>", userId);
     if (userId <= 0) {
       throw new ApplicationException(HttpStatus.SC_BAD_REQUEST, Messages.BAD_REQUEST);
     }
@@ -65,7 +65,7 @@ public class UserResource {
   @Path("/add")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response addUser(@HeaderParam(Constants.USER_ID) Integer userId, @NotNull @Valid User user) {
-    LOG.info("addUser - Method begins with email <{}> userId <{}>", user.getEmail(), userId);
+    LOG.info("addUser - Method begins with email <{}> , userId <{}>", user.getEmail(), userId);
     if (!userService.validateUserData(user)){
       throw new ApplicationException(HttpStatus.SC_BAD_REQUEST, Messages.INVALID_USER_DETAILS);
     }

@@ -45,7 +45,7 @@ public class AuthResource {
   @POST
   public Response authenticate(@HeaderParam(Constants.IP_ADDRESS) String ipAddress,
       @Valid AuthRequest authRequest) {
-    LOG.info("authenticate - Method begins with email <{}>", authRequest.getEmail());
+    LOG.debug("authenticate - Method begins with email <{}>", authRequest.getEmail());
     if (!EmailValidator.getInstance().isValid(authRequest.getEmail())) {
       throw new ApplicationException(HttpStatus.SC_BAD_REQUEST, Messages.INVALID_EMAIL);
     }

@@ -17,6 +17,11 @@ public class StringUtil {
     //Default constructor
   }
 
+  /**
+   * Method to validate a name of a person
+   * @param name of the person
+   * @return true/false
+   */
   public static boolean validateName(String name) {
     LOG.debug("validateName - Method begins here with name <{}>", name);
     String regx = "^[a-zA-Z\\s]*$";
