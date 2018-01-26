@@ -1,7 +1,4 @@
 *.log
 *.idea
-*.jpeg
-*.gif
-*.mp4
 *.iml
 target/

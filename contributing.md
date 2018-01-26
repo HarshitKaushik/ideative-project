@@ -1,5 +1,6 @@
 # How to contibute
 Please make sure you follow the following coding conventions (inspired by Google style guide)
+
 ### Source files basics
 - The source file name consists of the case-sensitive name of the top-level class it contains (of which there is exactly one), plus the .java extension.
 - Source files are encoded in UTF-8.
